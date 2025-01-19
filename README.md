@@ -56,16 +56,11 @@ Set the following environment variables in your system (recommended for producti
 
           MOODLE_BASE_URL: The base URL of your Moodle instance (e.g., https://your-moodle-site.com).
           MOODLE_API_TOKEN: The token generated for the web service user.
-          Alternatively, for quick testing, you can set these values directly in the script (not recommended for production use).
+          Alternatively, for quick testing locally in your localhost, you can set these values directly in the script (not recommended for production use).
 
 
-Usage
-1. Open in a Browser
-After configuring and running the project, access the Streamlit app through your browser.
 
-Examples: https://your_domain:8502
-
-2. Running the Streamlit App
+Running the Streamlit App
 If the project includes a Streamlit app, you can start it as follows:
 Ensure the virtual environment is activated.
 
@@ -74,6 +69,12 @@ Run the app using:
 streamlit run app_name.py
 
 Replace app_name.py with the actual filename of your Streamlit app.
+
+Usage
+1. Open in a Browser
+After configuring and running the project, access the Streamlit app through your browser.
+
+Examples: https://your_domain:8502
 
 
 Contributing
