@@ -60,7 +60,7 @@ Usage
 After configuring and running the project, access the Streamlit app through your browser. Examples:
 
 https://your_domain:8502
-https://localhost:8502
+
 2. Running the Streamlit App
 If the project includes a Streamlit app, you can start it as follows:
 
