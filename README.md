@@ -26,7 +26,6 @@ It uses the REST protocol for communication with the Moodle instance.
               (Add amd customized new ones)
 
 
-
 Installation
 
 Clone this repository:
@@ -49,8 +48,6 @@ Install the required Python libraries:
 
 pip install -r requirements.txt
 
-
-
 Configuration
 
 Set the following environment variables in your system:
@@ -60,7 +57,6 @@ MOODLE_BASE_URL: The base URL of your Moodle instance (e.g., http://your-moodle-
 MOODLE_API_TOKEN: The token generated for the web service user.
 
 Alternatively, you can directly set these values in the script (not recommended for production environments).
-
 
 
 Usage
@@ -75,11 +71,6 @@ If the project includes a Streamlit app, you can run it as follows:
 
 Ensure the virtual environment is activated:
 
-# On Linux/Mac
-source venv/bin/activate
-
-# On Windows
-venv\Scripts\activate
 
 Run the Streamlit app:
 
