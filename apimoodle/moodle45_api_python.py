@@ -8,6 +8,9 @@ import streamlit as st
 import pandas as pd
 import requests
 from pathlib import Path
+import matplotlib.pyplot as plt
+import plotly.express as px
+
 
 import os
 # Configuration for connecting Moodle API to Python using Streamlit
@@ -59,17 +62,9 @@ def get_users(criteria=None):
     if criteria:
         params['criteria'] = criteria
     
-    result = make_request('core_user_get_users', params=params)
+    result = make_request('core_view_user_list', params=params)
     return result
 
-# Example usage:
-# Fetch all users (no criteria provided)
-all_users = get_users()
-print(all_users)
-
-# Fetch users with specific criteria
-specific_users = get_users(criteria=[{'key': 'email', 'value': 'user@example.com'}])
-print(specific_users)
 
 
 
@@ -82,7 +77,7 @@ def get_courses():
 def main():
     st.title("Python Streamlit integration Moodle API")
     st.subheader("Extend Moodle 4.5 with an interactive and enhanced interface.")
-    st.subheader("Integrate AI in a personalized way.")
+  
 
   
     st.markdown("""
@@ -92,7 +87,7 @@ def main():
     """)
 
     st.text("Extend Moodle with an interactive and enhanced interface.")
-    st.text("Integrate AI into Moodle in a personalized way.")
+   # st.text("Integrate AI into Moodle in a personalized way.")
 
 
 
@@ -133,18 +128,7 @@ def main():
                 else:
                     st.warning("No advanced features found.")
 
-    # Section: Users
-    with st.expander("Users"):
-        if st.button("Load Users", key="users"):
-            result = get_users()
-            if "error" in result:
-                st.error(f"Error: {result['error']}")
-            else:
-                if "users" in result:
-                    users = pd.DataFrame(result["users"])
-                    st.dataframe(users[["id", "firstname", "lastname", "email"]])
-                else:
-                    st.warning("No users found.")
+    
 
     # Section: Courses
     with st.expander("Courses"):
@@ -174,8 +158,46 @@ def main():
                     courses = pd.DataFrame(result)
                     st.dataframe(courses[["id", "fullname", "shortname"]])
                     st.bar_chart(courses.set_index("fullname")["id"])
+
+                    # Gráfico de líneas
+                    st.subheader("Line Chart")
+                    st.line_chart(courses.set_index("fullname")["id"])
+
+                    # Gráfico de área
+                    st.subheader("Area Chart")
+                    st.area_chart(courses.set_index("fullname")["id"])
+
+                    # Gráfico circular con Matplotlib
+                    st.subheader("Pie Chart")
+                    fig, ax = plt.subplots()
+                    ax.pie(courses["id"], labels=courses["fullname"], autopct='%1.1f%%', startangle=90)
+                    ax.axis('equal')  # Para que el gráfico sea un círculo
+                    st.pyplot(fig)
+
+                    # Gráfico circular con Plotly
+                    st.subheader("Pie Chart (Interactive)")
+                    fig = px.pie(courses, values="id", names="fullname", title="Course Distribution")
+                    st.plotly_chart(fig)
+
+                    # Gráfico de barras apiladas con Plotly
+                    st.subheader("Stacked Bar Chart (Interactive)")
+                    fig = px.bar(courses, x="fullname", y="id", title="Courses Bar Chart", text="id")
+                    st.plotly_chart(fig)
+
+                    # Gráfico de dispersión (Scatter Plot) con Plotly
+                    st.subheader("Scatter Plot (Interactive)")
+                    fig = px.scatter(courses, x="fullname", y="id", title="Course ID Scatter Plot", size="id")
+                    st.plotly_chart(fig)
+
+
+
+
+
+
                 else:
-                    st.warning("No Data Analysis found.")       
+                    st.warning("No Data Analysis found.")      
+
+
                     
     with st.expander("Custom reports"):
         if st.button("Custom reports", key="Custom reports"):
@@ -191,7 +213,20 @@ def main():
                     st.dataframe(courses[["id", "fullname", "shortname"]])
                     st.bar_chart(courses.set_index("fullname")["id"])
                 else:
-                    st.warning("No Custom reports found.")     
+                    st.warning("No Custom reports found.")    
+
+      # Section: Users
+    with st.expander("Users"):
+        if st.button("Load Users", key="users"):
+            result = get_users()
+            if "error" in result:
+                st.error(f"Error: {result['error']}")
+            else:
+                if "users" in result:
+                    users = pd.DataFrame(result["users"])
+                    st.dataframe(users[["id", "firstname", "lastname", "email"]])
+                else:
+                    st.warning("No users found.")              
 
 
 
